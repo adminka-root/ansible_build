@@ -1,0 +1,10 @@
+- name: Установка программ из репозитория
+  hosts: "{{ host_for_play | default('virtual_box') }}"  # all
+  become: yes
+
+
+  tasks:
+  - name: Напечатать
+    debug:
+      msg:
+        - "{{ ansible_sudo_pass }}"
