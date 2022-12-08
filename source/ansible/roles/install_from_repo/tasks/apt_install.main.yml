@@ -4,4 +4,5 @@
   with_items: "{{ apt_install }}"
   loop_control:
     loop_var: category
+  when: apt_install_settings['category_enabled'][category] | bool
 

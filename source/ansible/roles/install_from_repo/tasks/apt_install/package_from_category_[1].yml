@@ -7,4 +7,6 @@
   loop: "{{ apt_install[category] }}"
   loop_control:
     label: "{{ category }}"
-  when: item['need_install'] | bool
+  when:
+    - item['need_install'] | bool
+    - item['priority'] <= apt_install_settings['max_priority_for_install']
