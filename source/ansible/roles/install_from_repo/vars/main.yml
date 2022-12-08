@@ -1,2 +1,13 @@
 ---
 # vars file for install_from_repo
+
+apt_install:
+  system_utils:
+    - package: advancecomp,
+      description: 'Оптимизация png'
+      need_install: true
+
+    - package: alien,
+      description: ''
+      need_install: false
+

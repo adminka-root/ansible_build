@@ -1,2 +1,5 @@
 ---
 # tasks file for install_from_repo
+
+- name: Импорт инструкций установки
+  include_tasks: apt_install.main.yml

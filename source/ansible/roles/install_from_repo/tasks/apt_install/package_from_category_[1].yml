@@ -1,0 +1,10 @@
+---
+- name: Печать
+  debug:
+    msg:
+      - "Пакет: {{ item['package'] }}"
+      - "Описание: {{ item['description'] }}"
+  loop: "{{ apt_install[category] }}"
+  loop_control:
+    label: "{{ category }}"
+  when: item['need_install'] | bool

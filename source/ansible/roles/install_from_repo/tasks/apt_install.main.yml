@@ -1,0 +1,7 @@
+---
+- name: Получение очередной категории программ
+  include_tasks: apt_install/package_from_category_[1].yml
+  with_items: "{{ apt_install }}"
+  loop_control:
+    loop_var: category
+
