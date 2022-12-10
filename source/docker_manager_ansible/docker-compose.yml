@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:  # запускаемые контейнеры
+    ansible_build:  # имена контейнеров
+      image: 'ansible:ssh'
+      restart: 'no'  # автоматический перезапуск при краше контейнера
+      ports:
+        - 40003:22
+      networks:
+        net:
+          ipv4_address: 192.168.55.100
+      environment:
+        - "SSH_HOST_RSA_KEY=${SSH_HOST_RSA_KEY}"
+        - "SSH_AUTHORIZED_KEY=${SSH_AUTHORIZED_KEY}"
+networks:
+    net:
+      name: ansible_build_network
+      driver: bridge
+      ipam:
+        driver: default
+        config:
+          - subnet: 192.168.55.0/24

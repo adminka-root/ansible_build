@@ -1,3 +1,4 @@
 /.ignore_files
 /source/ansible/vault-password-file.txt
 *.retry
+source/docker_manager_ansible/.env
