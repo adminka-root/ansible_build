@@ -66,6 +66,55 @@ sudo apt update
 sudo apt install -y python3.8
 ```
 
+Также установим pip:
+
+```bash
+sudo apt install python3-pip  # системный
+
+# ---------- pip для python3.8 ----------
+sudo apt install python3.8-distutils
+cd /tmp
+wget https://bootstrap.pypa.io/get-pip.py
+python3.8 get-pip.py
+
+# добавить путь в PATH, если нужно
+add_to_PATH=("$HOME/.local/bin")
+for path_i in "${add_to_PATH[@]}"; do case ":$PATH:" in *:$path_i:*) echo -e "\nskeep: $path_i already defined";; *) if [[ -d "$path_i" ]]; then echo 'PATH="${PATH:+${PATH}:}'"$path_i"\" >> "$HOME/.profile"; else echo -e "\nskeep: $path_i don't exist"; fi ;; esac; done
+source ~/.profile
+# ---------------------------------------
+
+# --- Делаем pip3.10 по умолчанию в т.ч. и для нашего юзера ---
+whereis pip3  # /usr/bin/pip3 /home/adminka/.local/bin/pip3
+whereis pip3.10 # /usr/bin/pip3.10
+mv "$HOME/.local/bin/pip3" "$HOME/.local/bin/pip3.backup"
+
+alias update-my-alternatives='update-alternatives --altdir ~/.local/etc/alternatives --admindir ~/.local/var/lib/alternatives'
+mkdir -p ~/.local/var/lib/alternatives ~/.local/etc/alternatives
+update-my-alternatives --force --install "$HOME/.local/bin/pip3" pip3 "$HOME/.local/bin/pip3.8" 10
+update-my-alternatives --install "$HOME/.local/bin/pip3" pip3 /usr/bin/pip3.10  20
+update-my-alternatives --query pip3
+pip3 -V  # pip 22.0.2 from /usr/lib/python3/dist-packages/pip (python 3.10)
+
+# Примечание: очень даже можно на будущее 
+# занести данный алиас в ~/.bashrc
+# ---------------------------------------
+
+sys_python="python3.10"
+depends="/tmp/system-python-freeze.txt"
+python3.10 -m pip list -v | grep -v "$HOME" | grep /usr/lib/python3/dist-packages | awk -F' ' '{ printf "%s==%s\n", $1, $2 }' | tee "$depends"
+python3.8 -m pip install --upgrade pip
+pip3.8 install -r "$depends"
+
+```
+
+Мало просто установить python3.8. В такой поставке не существует системных модулей, необходимых ansible.  Например, этого
+
+```bash
+$ apt content python3-apt | grep /usr/lib/python3/dist-packages/
+```
+
+Я столкнулся с проблемой установки python3-apt для python3.8. Далее мои умозоключения (ни факт, что верные). Судя по всему, нужен системный python3.8. Ведь, хоть мы и логинимся под конкретным пользователем, выполняются become команды от root. Соответственно, не подхватываются  dist-packages уровня пользователя. И второе но: даже если удастся писать в системную папку python3.8/dist-packages/ - как доставить python3-apt туда, откуда его взять для python3.8 и будет ли ansible туда заглядывать (вероятно будет)?! Словом, отпуская с чистой совестью эти вопросы, я заключаю, что текущий подход начал смахивать на костыльный. Нужен иной. Мне не нужно менять системы на host-е, устанавливая python3.8 и борясь с проблемами, чтобы ansible завелся. Но и управляющую систему с LM 19.3 на борту менять не хочу. Поэтому в планах - создание docker контейнера, в котором будет ansible с версией, способной управлять машинкой, на которой установлен python3.10. Я просто смонтирую репку в docker-контейнер, а команды буду выполнять, подключившись по ssh.
+
 В таком случаи можно указать явно используемый интерпретатор для всей группы *virtual_box* в файле *hosts.yml* :
 
 ```yaml
