@@ -1,5 +1,5 @@
 FROM ubuntu:jammy AS ubuntu-base
-MAINTAINER Adminka-Root <https://github.com/adminka-root>
+MAINTAINER adminka-Root <https://github.com/adminka-root>
 EXPOSE 22
 
 RUN apt-get update && \
@@ -7,7 +7,6 @@ RUN apt-get update && \
       supervisor \
       openssh-server \
       python3 \
-      python3-apt \
       sudo \
       passwd  \
       ansible && \
@@ -18,9 +17,15 @@ RUN apt-get update && \
     rm -vf /etc/ssh/ssh_host_*
 
 ADD entrypoint.sh /entrypoint.sh
-RUN useradd -s /bin/sh adminka -d /home/adminka -m && \
-    mkdir -p /home/adminka/.ssh && \
-    chown adminka:adminka /home/adminka/.ssh && \
+RUN useradd \
+    --shell=/bin/bash \
+    --uid=1000 \
+    --groups=sudo \
+    ubuntu && \
+    groupmod -g 1001 ubuntu && \
+    mkhomedir_helper ubuntu && \
+    mkdir -p /home/ubuntu/.ssh && \
+    chown ubuntu:ubuntu /home/ubuntu/.ssh && \
     chmod +x entrypoint.sh
 
 ADD supervisord.conf /etc/supervisor/supervisord.conf

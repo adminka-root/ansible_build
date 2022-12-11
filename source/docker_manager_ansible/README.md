@@ -26,7 +26,7 @@ docker compose up --force-recreate  # насильно пересоздать и
 Как бы то ни было, ssh ключи оправлены, поэтому можно безболезненно коннектиться:
 
 ```bash
-ssh adminka@localhost -p 40003
+ssh ubuntu@localhost -p 40003
 ```
 
 > Напоминашка:
@@ -36,7 +36,7 @@ ssh adminka@localhost -p 40003
 > docker rm id
 > docker image -ls
 > docker rmi id
-> docker compose rm -fsv:  # удалить все контейнеры с томами в рамках compose
+> docker compose rm -fsv  # удалить все контейнеры с томами в рамках compose
 > ```
 
 ## Что не сделано?

@@ -1,7 +1,9 @@
 version: '3.8'
 
-services:  # запускаемые контейнеры
-    ansible_build:  # имена контейнеров
+services:
+    ansible_build:
+      # запретить определение имени типа <project>_<service>_<index>
+      container_name: 'ansible_build'  # указать явно ansible_build
       image: 'ansible:ssh'
       restart: 'no'  # автоматический перезапуск при краше контейнера
       ports:
@@ -12,6 +14,14 @@ services:  # запускаемые контейнеры
       environment:
         - "SSH_HOST_RSA_KEY=${SSH_HOST_RSA_KEY}"
         - "SSH_AUTHORIZED_KEY=${SSH_AUTHORIZED_KEY}"
+        - "UBUNTU_PASSWORD=${UBUNTU_PASSWORD}"
+      volumes:
+        #- ansible_build:/home/ubuntu/ansible_build:readonly
+        # монтируется в контейнере с правами хоста (нужно соотвествие uid и gid)
+        - /home/adminka/General/Documents/Programming/Working_projects/ansible_build:/home/ubuntu/ansible_build:readonly
+volumes:
+  ansible_build:
+    name: 'ansible_build'
 networks:
     net:
       name: ansible_build_network
