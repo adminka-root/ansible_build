@@ -4,6 +4,8 @@ EXPOSE 22
 
 ARG USER_NAME=ubuntu
 ENV USER_NAME ${USER_NAME}
+ARG USER_UID=1000  # сопоставление системных uid/gid volume
+ARG USER_GID=1001  # если проще: вызови id в системе и посмотри
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
@@ -22,10 +24,10 @@ RUN apt-get update && \
 ADD entrypoint.sh /entrypoint.sh
 RUN useradd \
     --shell=/bin/bash \
-    --uid=1000 \
+    --uid="${USER_UID}" \
     --groups=sudo \
     ${USER_NAME} && \
-    groupmod -g 1001 ${USER_NAME} && \
+    groupmod -g ${USER_GID} ${USER_NAME} && \
     mkhomedir_helper ${USER_NAME} && \
     mkdir -p /home/${USER_NAME}/.ssh && \
     chown ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.ssh && \
