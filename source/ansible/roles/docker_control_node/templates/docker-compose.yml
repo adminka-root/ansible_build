@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+    ansible_build:
+      # запретить определение имени типа <project>_<service>_<index>
+      container_name: '{{ control_settings.docker.compose.names.container }}'
+      image: '{{ control_settings.docker.compose.names.image }}'
+      restart: 'no'  # автоматический перезапуск при краше контейнера
+      ports:
+        - {{ control_settings.docker.compose.network.port_lh }}:{{ control_settings.docker.compose.network.port_b }}
+      networks:
+        net:
+          ipv4_address: {{ control_settings.docker.compose.network.ipv4_address }}
+      environment:
+        - "SSH_HOST_RSA_KEY=${SSH_HOST_RSA_KEY}"
+        - "SSH_AUTHORIZED_KEY=${SSH_AUTHORIZED_KEY}"
+        - "USER_PASSWORD=${USER_PASSWORD}"
+      volumes:
+        #- ansible_build:/home/ubuntu/ansible_build:readonly
+        # монтируется в контейнере с правами хоста (нужно соотвествие uid и gid)
+        - {{ control_settings.docker.compose.volume.source }}:{{ control_settings.docker.compose.volume.dest }}:{{ control_settings.docker.compose.volume.readonly }}
+volumes:
+  ansible_build:
+    name: '{{ control_settings.docker.compose.names.volume }}'
+networks:
+    net:
+      name: '{{ control_settings.docker.compose.network.name }}'
+      driver: bridge
+      ipam:
+        driver: default
+        config:
+          - subnet: {{ control_settings.docker.compose.network.sub_net }}
+
+

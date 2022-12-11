@@ -1,0 +1,25 @@
+---
+- block:
+
+  - name: Удаление образа, контейнеров и томов
+    vars: { task: 'docker/drop.yml'}
+    include_tasks: "{{ task }}"
+    when: control_settings.mode.drop_node | bool
+
+  - name: Перестройка управляющего узла
+    vars: { task: 'docker/rebuild.yml'}
+    include_tasks: "{{ task }}"
+    when: control_settings.mode.rebuild_node | bool
+
+  - name: docker compose stop
+    vars: { task: 'docker/stop.yml'}
+    include_tasks: "{{ task }}"
+    when: control_settings.mode.stop_node | bool or control_settings.mode.restart_node | bool
+
+  - name: docker compose start
+    vars: { task: 'docker/start.yml'}
+    include_tasks: "{{ task }}"
+    when: control_settings.mode.start_node | bool or control_settings.mode.restart_node | bool
+
+  delegate_to: asus_x751_ln
+  run_once: true

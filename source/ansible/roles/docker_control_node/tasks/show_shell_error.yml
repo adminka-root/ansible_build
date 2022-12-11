@@ -1,0 +1,17 @@
+- name: Ошибка выполнения shell скрипта ({{ task }})
+  debug:
+    msg:
+      - "Истекло время выполнения ({{ time }} секунд)!"
+  failed_when: true
+  when: not shell_result.rc is defined
+
+- name: Ошибка выполнения shell скрипта ({{ task }})
+  debug:
+    msg:
+      - "Error: {{ shell_result.stderr_lines }}"
+      - "Rc: {{ shell_result.rc }}"
+  failed_when: true
+  when:
+    - shell_result.rc is defined
+    - shell_result.rc | int != 0
+

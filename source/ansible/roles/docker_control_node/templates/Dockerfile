@@ -1,11 +1,11 @@
 FROM ubuntu:jammy AS ubuntu-base
-MAINTAINER adminka-Root <https://github.com/adminka-root>
+MAINTAINER Adminka-Root <https://github.com/adminka-root>
 EXPOSE 22
 
-ARG USER_NAME=ubuntu
+ARG USER_NAME={{ control_settings.docker.user.name }}
 ENV USER_NAME ${USER_NAME}
-ARG USER_UID=1000  # сопоставление системных uid/gid volume
-ARG USER_GID=1001  # если проще: вызови id в системе и посмотри
+ARG USER_UID={{ control_settings.docker.user.uid }}
+ARG USER_GID={{ control_settings.docker.user.gid }}
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \

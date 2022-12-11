@@ -1,0 +1,40 @@
+---
+# vars file
+
+role_path: "{{ playbook_dir }}/roles/docker_control_node"
+role_path_files: "{{ role_path }}/files"
+role_path_templates: "{{ role_path }}/templates"
+
+control_settings:
+  mode:
+    start_node: "{{ start | default(false) | bool }}"
+    stop_node: "{{ stop | default(false) | bool }}"
+    restart_node: "{{ restart | default(false) | bool }}"
+    rebuild_node: "{{ rebuild | default(false) | bool }}"
+    drop_node: "{{ drop | default(false) | bool }}"
+    start_stop_timeout_poll: [ 60, 1 ]
+    rebuild_timeout_poll: [ 240, 5 ]
+  docker:
+    compose:
+      names:
+        container: 'ansible_build'
+        image: 'ansible:ssh'
+        volume: 'ansible_build'
+      volume:
+        source: "{{ VOLUME_SOURCE | default('/home/adminka/General/Documents/Programming/Working_projects/ansible_build') }}"
+        dest: "{{ VOLUME_DEST | default('/home/ubuntu/ansible_build') }}"
+        readonly: "{{ VOLUME_RO | default('readonly') }}"
+      network:
+        name: "{{ network_name | default('ansible_build_network') }}"
+        ipv4_address: "{{ ip_address | default('192.168.55.100') }}"
+        sub_net: "{{ subnet | default('192.168.55.0/24') }}"
+        port_lh: "{{ localhost_port | default('40003') }}"
+        port_b: "{{ bridge_port | default('22') }}"
+    user:
+      name: "{{ USER_NAME | default('ubuntu') }}"
+      uid: "{{ USER_UID | default('1000') }}"
+      gid: "{{ USER_GID | default('1001') }}"
+      password: "{{ USER_PASSWORD | default('utnubu') }}"
+      ssh_ak: ""
+
+

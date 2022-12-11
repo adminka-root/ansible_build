@@ -3,7 +3,7 @@ version: '3.8'
 services:
     ansible_build:
       # запретить определение имени типа <project>_<service>_<index>
-      container_name: 'ansible_build'  # указать явно ansible_build
+      container_name: 'ansible_build'
       image: 'ansible:ssh'
       restart: 'no'  # автоматический перезапуск при краше контейнера
       ports:
@@ -14,7 +14,7 @@ services:
       environment:
         - "SSH_HOST_RSA_KEY=${SSH_HOST_RSA_KEY}"
         - "SSH_AUTHORIZED_KEY=${SSH_AUTHORIZED_KEY}"
-        - "UBUNTU_PASSWORD=${UBUNTU_PASSWORD}"
+        - "USER_PASSWORD=${USER_PASSWORD}"
       volumes:
         #- ansible_build:/home/ubuntu/ansible_build:readonly
         # монтируется в контейнере с правами хоста (нужно соотвествие uid и gid)
@@ -24,9 +24,11 @@ volumes:
     name: 'ansible_build'
 networks:
     net:
-      name: ansible_build_network
+      name: 'ansible_build_network'
       driver: bridge
       ipam:
         driver: default
         config:
           - subnet: 192.168.55.0/24
+
+

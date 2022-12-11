@@ -1,0 +1,22 @@
+---
+- name: Генерация docker файлов
+  template:
+    src: "{{ role_path_templates + '/' + item }}"
+    dest: "{{ role_path_files + '/' + item }}"
+    mode: 0644
+  loop: ['.env', 'docker-compose.yml', 'Dockerfile']
+
+- name: Выполнение shell скрипта ({{ task }})
+  shell: >
+    cd "{{ role_path_files }}" &&
+    docker compose rm -fsv;
+    docker rmi "{{ control_settings.docker.compose.names.image }}";
+    docker build -t "{{ control_settings.docker.compose.names.image }}" .;
+    docker compose up --detach
+  async: "{{ control_settings.mode.rebuild_timeout_poll[0] | int }}"
+  poll: "{{ control_settings.mode.rebuild_timeout_poll[1] | int }}"
+  register: shell_result
+  failed_when: not true and not false  # т.е. never
+
+- include_tasks: show_shell_error.yml
+  vars: { time: "{{ control_settings.mode.rebuild_timeout_poll[0] }}" }

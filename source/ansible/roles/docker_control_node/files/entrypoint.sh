@@ -30,7 +30,7 @@ if [[ -n "${SSH_AUTHORIZED_KEY}" ]]; then
 fi
 
 passwd -d ${USER_NAME}
-echo "$(echo -e "${UBUNTU_PASSWORD}\n${UBUNTU_PASSWORD}")" | sudo passwd ${USER_NAME}
-UBUNTU_PASSWORD=''
+echo "$(echo -e "${USER_PASSWORD}\n${USER_PASSWORD}")" | sudo passwd ${USER_NAME}
+USER_PASSWORD=''
 
 exec supervisord -n -c /etc/supervisor/supervisord.conf

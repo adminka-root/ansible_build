@@ -1,0 +1,8 @@
+- name: Настройка управляющего узла в docker
+  hosts: "{{ host_for_play | default('asus_x751_ln') }}"  # all
+  become: false
+
+  tasks:
+
+  - include_role:
+      name: docker_control_node

@@ -2,5 +2,7 @@
   hosts: "{{ host_for_play | default('virtual_box') }}"  # all
   become: yes
 
-  roles:
-    - { role: install_from_repo }
+  tasks:
+
+  - include_role:
+      name: install_from_repo
