@@ -62,14 +62,14 @@ if [[ -n "${SSH_HOST_ED25519_PUBLIC_KEY}" ]]; then
 fi
 
 if [[ -n "${SSH_AUTHORIZED_KEY}" ]]; then
-  echo "${SSH_AUTHORIZED_KEY}" > /home/ubuntu/.ssh/authorized_keys
-  chown -R ubuntu:ubuntu /home/ubuntu/.ssh
-  chmod 0400 /home/ubuntu/.ssh/authorized_keys
+  echo "${SSH_AUTHORIZED_KEY}" > /home/${USER_NAME}/.ssh/authorized_keys
+  chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.ssh
+  chmod 0400 /home/${USER_NAME}/.ssh/authorized_keys
   unset SSH_AUTHORIZED_KEY
 fi
 
-passwd -d ubuntu
-echo "$(echo -e "${UBUNTU_PASSWORD}\n${UBUNTU_PASSWORD}")" | sudo passwd ubuntu
+passwd -d ${USER_NAME}
+echo "$(echo -e "${UBUNTU_PASSWORD}\n${UBUNTU_PASSWORD}")" | sudo passwd ${USER_NAME}
 UBUNTU_PASSWORD=''
 
 exec supervisord -n -c /etc/supervisor/supervisord.conf
