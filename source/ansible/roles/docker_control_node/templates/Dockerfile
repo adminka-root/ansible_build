@@ -12,6 +12,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
       supervisor \
       openssh-server \
+      sshpass \
       python3 \
       sudo \
       passwd  \

@@ -1,0 +1,35 @@
+- name: Отправка ключей
+  hosts: 'virtual_box'
+  become: false
+
+  vars:
+    keys_from: "{{ ['real_system', 'control_node'] }}"  # конкретные узлы
+
+  tasks:
+  - set_fact:
+      ssh_ak: "{{ ssh_ak | default([]) + [lookup('file', key )] }}"
+    vars: 
+      key: "{{ hostvars[server]['orig_public_key'] }}"
+    loop: "{{ keys_from }}"
+    loop_control: { loop_var: server }
+    delegate_to: "{{ server }}"
+    run_once: true
+
+# нам обязательно нужно залезть на сервер, ибо ключ на нем
+# но мы не можем залезть на real_system, он не доступен в docker
+# проблема, что real_system прописан как 127.0.0.1, поэтому
+# дважды получаем ключ с control_node, вместо ошибки, мол сервер
+# не доступен, идите лесом.
+# и немного философии: ведь,т.к. ansible_port: 40002, по идеи
+# он должен сбрасывать ssh для 127.0.0.1, но он почему-то радостно
+# таки подключается :)
+
+  - name: Отобразить полученные ключи
+    vars:
+      ssh_ak_string: "{{ ssh_ak | join('\n') }}"
+    debug:
+      msg: "{{ ssh_ak_string.split('\n') }}"
+
+
+
+
