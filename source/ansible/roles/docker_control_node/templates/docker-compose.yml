@@ -3,32 +3,35 @@ version: '3.8'
 services:
     ansible_build:
       # запретить определение имени типа <project>_<service>_<index>
-      container_name: '{{ control_settings.docker.compose.names.container }}'
-      image: '{{ control_settings.docker.compose.names.image }}'
+      container_name: '{{ hostvars.control_node.docker.names.container }}'
+      image: '{{ hostvars.control_node.docker.names.image }}'
       restart: 'no'  # автоматический перезапуск при краше контейнера
       ports:
-        - {{ control_settings.docker.compose.network.port_lh }}:{{ control_settings.docker.compose.network.port_b }}
+        - {{ hostvars.control_node.docker.network.port_lh }}:{{ hostvars.control_node.ansible_port }}
       networks:
         net:
-          ipv4_address: {{ control_settings.docker.compose.network.ipv4_address }}
+          ipv4_address: {{ hostvars.control_node.ansible_host }}
       environment:
         - "SSH_HOST_RSA_KEY=${SSH_HOST_RSA_KEY}"
+        - "SSH_HOST_RSA_PUBLIC_KEY=${SSH_HOST_RSA_PUBLIC_KEY}"
         - "SSH_AUTHORIZED_KEY=${SSH_AUTHORIZED_KEY}"
         - "USER_PASSWORD=${USER_PASSWORD}"
+        - "SSH_HOST_RSA_KEY_NAME=${SSH_HOST_RSA_KEY_NAME}"
+        - "SSH_HOST_RSA_PUBLIC_KEY_NAME=${SSH_HOST_RSA_PUBLIC_KEY_NAME}"
       volumes:
         #- ansible_build:/home/ubuntu/ansible_build:readonly
         # монтируется в контейнере с правами хоста (нужно соотвествие uid и gid)
-        - {{ control_settings.docker.compose.volume.source }}:{{ control_settings.docker.compose.volume.dest }}:{{ control_settings.docker.compose.volume.readonly }}
+        - {{ hostvars.control_node.docker.volume.source }}:{{ hostvars.control_node.docker.volume.dest }}:{{ hostvars.control_node.docker.volume.readonly }}
 volumes:
   ansible_build:
-    name: '{{ control_settings.docker.compose.names.volume }}'
+    name: '{{ hostvars.control_node.docker.names.volume }}'
 networks:
     net:
-      name: '{{ control_settings.docker.compose.network.name }}'
+      name: '{{ hostvars.control_node.docker.names.network }}'
       driver: bridge
       ipam:
         driver: default
         config:
-          - subnet: {{ control_settings.docker.compose.network.sub_net }}
+          - subnet: {{ hostvars.control_node.docker.network.sub_net }}
 
 

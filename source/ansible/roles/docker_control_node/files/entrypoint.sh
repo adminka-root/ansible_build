@@ -7,18 +7,20 @@ SSH_HOST_RSA_PUBLIC_KEY=${SSH_HOST_RSA_PUBLIC_KEY:-}
 SSH_AUTHORIZED_KEY=${SSH_AUTHORIZED_KEY:-}
 
 if [[ -n "${SSH_HOST_RSA_KEY}" ]]; then
-  echo "${SSH_HOST_RSA_KEY}" >/etc/ssh/ssh_host_rsa_key
-  chown root:root /etc/ssh/ssh_host_rsa_key
-  chmod 0400 /etc/ssh/ssh_host_rsa_key
+  echo "${SSH_HOST_RSA_KEY}" > /home/${USER_NAME}/.ssh/${SSH_HOST_RSA_KEY_NAME}
+  chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.ssh
+  chmod 600 /home/${USER_NAME}/.ssh/${SSH_HOST_RSA_KEY_NAME}
   unset SSH_HOST_RSA_KEY
-elif [[ ! -f /etc/ssh/ssh_host_rsa_key ]]; then
+fi
+
+if [[ ! -f /etc/ssh/ssh_host_rsa_key ]]; then
   ssh-keygen -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
 fi
 
 if [[ -n "${SSH_HOST_RSA_PUBLIC_KEY}" ]]; then
-  echo "${SSH_HOST_RSA_PUBLIC_KEY}" >/etc/ssh/ssh_host_rsa_key.pub
-  chown root:root /etc/ssh/ssh_host_rsa_key.pub
-  chmod 0400 /etc/ssh/ssh_host_rsa_key.pub
+  echo "${SSH_HOST_RSA_PUBLIC_KEY}" > /home/${USER_NAME}/.ssh/${SSH_HOST_RSA_PUBLIC_KEY_NAME}
+  chown -R ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.ssh
+  chmod 644 /home/${USER_NAME}/.ssh/${SSH_HOST_RSA_PUBLIC_KEY_NAME}
   unset SSH_HOST_RSA_PUBLIC_KEY
 fi
 

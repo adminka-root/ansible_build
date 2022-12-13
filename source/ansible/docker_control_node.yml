@@ -1,5 +1,5 @@
 - name: Настройка управляющего узла в docker
-  hosts: "{{ host_for_play | default('asus_x751_ln') }}"  # all
+  hosts: 'asus_x751_ln'  # all
   become: false
 
   tasks:

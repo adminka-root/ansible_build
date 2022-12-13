@@ -2,7 +2,7 @@ FROM ubuntu:jammy AS ubuntu-base
 MAINTAINER Adminka-Root <https://github.com/adminka-root>
 EXPOSE 22
 
-ARG USER_NAME=ubuntu
+ARG USER_NAME=adminka
 ENV USER_NAME ${USER_NAME}
 ARG USER_UID=1000
 ARG USER_GID=1001

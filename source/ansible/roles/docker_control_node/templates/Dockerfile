@@ -2,10 +2,10 @@ FROM ubuntu:jammy AS ubuntu-base
 MAINTAINER Adminka-Root <https://github.com/adminka-root>
 EXPOSE 22
 
-ARG USER_NAME={{ control_settings.docker.user.name }}
+ARG USER_NAME={{ hostvars.control_node.ansible_user}}
 ENV USER_NAME ${USER_NAME}
-ARG USER_UID={{ control_settings.docker.user.uid }}
-ARG USER_GID={{ control_settings.docker.user.gid }}
+ARG USER_UID={{ hostvars.control_node.user.uid }}
+ARG USER_GID={{ hostvars.control_node.user.gid }}
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
