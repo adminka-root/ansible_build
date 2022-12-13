@@ -2,10 +2,9 @@ version: '3.8'
 
 services:
     ansible_build:
-      # запретить определение имени типа <project>_<service>_<index>
       container_name: 'ansible_build'
       image: 'ansible:ssh'
-      restart: 'no'  # автоматический перезапуск при краше контейнера
+      restart: 'no'
       ports:
         - 40003:22
       networks:
@@ -19,9 +18,7 @@ services:
         - "SSH_HOST_RSA_KEY_NAME=${SSH_HOST_RSA_KEY_NAME}"
         - "SSH_HOST_RSA_PUBLIC_KEY_NAME=${SSH_HOST_RSA_PUBLIC_KEY_NAME}"
       volumes:
-        #- ansible_build:/home/ubuntu/ansible_build:readonly
-        # монтируется в контейнере с правами хоста (нужно соотвествие uid и gid)
-        - /home/adminka/General/Documents/Programming/Working_projects/ansible_build:/home/adminka/ansible_build:readonly
+        - ~/General/Documents/Programming/Working_projects/ansible_build:/home/adminka/ansible_build:readonly
 volumes:
   ansible_build:
     name: 'ansible_build'
@@ -33,5 +30,3 @@ networks:
         driver: default
         config:
           - subnet: 192.168.55.0/24
-
-

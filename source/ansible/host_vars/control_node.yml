@@ -1,26 +1,12 @@
 ---
-ansible_user: 'adminka'
-ansible_port: 22
-ansible_become_pass: !vault |
-  $ANSIBLE_VAULT;1.1;AES256
-  38613132653365386564343863613533346566646166353434383666613462356137633535393130
-  3263656265313939653530616636353630306261386539620a356137666133323631383066343037
-  32303238336535373334303235653364613631306139623362323333323131346630363063393438
-  3963316238336165330a643162323535333431306262356235343966333831333862386331386166
-  6630
-
-# на реальной системе, значения по дефолту
-orig_private_key: '/home/adminka/.ssh/asus_x751_ln'
-orig_public_key: '/home/adminka/.ssh/asus_x751_ln.pub'
-
 user:
   uid: '1000'
   gid: '1001'
-  ssh_rsa: "{{ lookup('file', private_key | default(orig_private_key) ) }}"
-  ssh_rsa_p: "{{ lookup('file', public_key | default(orig_public_key) ) }}"
-  ssh_ak: "{{ lookup('file', public_key | default(orig_public_key) ) }}"
-  ssh_rsa_name: "{{ private_key | default(orig_private_key) | basename }}"
-  ssh_rsa_p_name: "{{ public_key | default(orig_public_key) | basename }}"
+  ssh_rsa: "{{ lookup('file', orig_private_key ) }}"
+  ssh_rsa_p: "{{ lookup('file', orig_public_key ) }}"
+  ssh_ak: "{{ lookup('file', orig_public_key ) }}"
+  ssh_rsa_name: "{{ orig_private_key | basename }}"
+  ssh_rsa_p_name: "{{ orig_public_key | basename }}"
 
 
 docker:
@@ -30,8 +16,8 @@ docker:
     volume: 'ansible_build'
     network: 'ansible_build_network'
   volume:
-    source: '/home/adminka/General/Documents/Programming/Working_projects/ansible_build'
-    dest: '/home/adminka/ansible_build'
+    source: "~/General/Documents/Programming/Working_projects/ansible_build"
+    dest: "{{ lookup('env','HOME') + '/ansible_build' }}"
     readonly: 'readonly'
   network:
     sub_net: '192.168.55.0/24'

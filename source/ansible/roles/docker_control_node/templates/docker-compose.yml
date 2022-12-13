@@ -2,15 +2,14 @@ version: '3.8'
 
 services:
     ansible_build:
-      # запретить определение имени типа <project>_<service>_<index>
-      container_name: '{{ hostvars.control_node.docker.names.container }}'
-      image: '{{ hostvars.control_node.docker.names.image }}'
-      restart: 'no'  # автоматический перезапуск при краше контейнера
+      container_name: '{{ hostvars[cn_server]['docker']['names']['container'] }}'
+      image: '{{ hostvars[cn_server]['docker']['names']['image'] }}'
+      restart: 'no'
       ports:
-        - {{ hostvars.control_node.docker.network.port_lh }}:{{ hostvars.control_node.ansible_port }}
+        - {{ hostvars[cn_server]['docker']['network']['port_lh'] }}:{{ hostvars[cn_server]['ansible_port'] }}
       networks:
         net:
-          ipv4_address: {{ hostvars.control_node.ansible_host }}
+          ipv4_address: {{ hostvars[cn_server]['ansible_host'] }}
       environment:
         - "SSH_HOST_RSA_KEY=${SSH_HOST_RSA_KEY}"
         - "SSH_HOST_RSA_PUBLIC_KEY=${SSH_HOST_RSA_PUBLIC_KEY}"
@@ -19,19 +18,15 @@ services:
         - "SSH_HOST_RSA_KEY_NAME=${SSH_HOST_RSA_KEY_NAME}"
         - "SSH_HOST_RSA_PUBLIC_KEY_NAME=${SSH_HOST_RSA_PUBLIC_KEY_NAME}"
       volumes:
-        #- ansible_build:/home/ubuntu/ansible_build:readonly
-        # монтируется в контейнере с правами хоста (нужно соотвествие uid и gid)
-        - {{ hostvars.control_node.docker.volume.source }}:{{ hostvars.control_node.docker.volume.dest }}:{{ hostvars.control_node.docker.volume.readonly }}
+        - {{ hostvars[cn_server]['docker']['volume']['source'] }}:{{ hostvars[cn_server]['docker']['volume']['dest'] }}:{{ hostvars[cn_server]['docker']['volume']['readonly'] }}
 volumes:
   ansible_build:
-    name: '{{ hostvars.control_node.docker.names.volume }}'
+    name: '{{ hostvars[cn_server]['docker']['names']['volume'] }}'
 networks:
     net:
-      name: '{{ hostvars.control_node.docker.names.network }}'
+      name: '{{ hostvars[cn_server]['docker']['names']['network'] }}'
       driver: bridge
       ipam:
         driver: default
         config:
-          - subnet: {{ hostvars.control_node.docker.network.sub_net }}
-
-
+          - subnet: {{ hostvars[cn_server]['docker']['network']['sub_net'] }}

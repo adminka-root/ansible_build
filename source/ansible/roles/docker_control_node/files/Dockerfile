@@ -6,6 +6,7 @@ ARG USER_NAME=adminka
 ENV USER_NAME ${USER_NAME}
 ARG USER_UID=1000
 ARG USER_GID=1001
+ARG GIT_REPO_DIR=/home/adminka/ansible_build
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
@@ -31,6 +32,7 @@ RUN useradd \
     mkhomedir_helper ${USER_NAME} && \
     mkdir -p /home/${USER_NAME}/.ssh && \
     chown ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.ssh && \
+    echo "cd \"${GIT_REPO_DIR}/source/ansible\"" >> /home/${USER_NAME}/.bashrc && \
     chmod +x entrypoint.sh
 
 ADD supervisord.conf /etc/supervisor/supervisord.conf

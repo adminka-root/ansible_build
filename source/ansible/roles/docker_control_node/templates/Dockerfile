@@ -2,10 +2,11 @@ FROM ubuntu:jammy AS ubuntu-base
 MAINTAINER Adminka-Root <https://github.com/adminka-root>
 EXPOSE 22
 
-ARG USER_NAME={{ hostvars.control_node.ansible_user}}
+ARG USER_NAME={{ hostvars[cn_server]['ansible_user'] }}
 ENV USER_NAME ${USER_NAME}
-ARG USER_UID={{ hostvars.control_node.user.uid }}
-ARG USER_GID={{ hostvars.control_node.user.gid }}
+ARG USER_UID={{ hostvars[cn_server]['user']['uid'] }}
+ARG USER_GID={{ hostvars[cn_server]['user']['gid'] }}
+ARG GIT_REPO_DIR={{ hostvars[cn_server]['docker']['volume']['dest'] }}
 
 RUN apt-get update && \
     apt-get install -y --no-install-suggests --no-install-recommends \
@@ -31,6 +32,7 @@ RUN useradd \
     mkhomedir_helper ${USER_NAME} && \
     mkdir -p /home/${USER_NAME}/.ssh && \
     chown ${USER_NAME}:${USER_NAME} /home/${USER_NAME}/.ssh && \
+    echo "cd \"${GIT_REPO_DIR}/source/ansible\"" >> /home/${USER_NAME}/.bashrc && \
     chmod +x entrypoint.sh
 
 ADD supervisord.conf /etc/supervisor/supervisord.conf

@@ -10,8 +10,8 @@
   shell: >
     cd "{{ role_path_files }}" &&
     docker compose rm -fsv;
-    docker rmi "{{ hostvars.control_node.docker.names.image }}";
-    docker build -t "{{ hostvars.control_node.docker.names.image }}" .;
+    docker rmi "{{ hostvars[cn_server]['docker']['names']['image'] }}";
+    docker build -t "{{ hostvars[cn_server]['docker']['names']['image'] }}" .;
     docker compose up --detach
   async: "{{ mode.rebuild_timeout_poll[0] | int }}"
   poll: "{{ mode.rebuild_timeout_poll[1] | int }}"
