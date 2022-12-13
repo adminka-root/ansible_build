@@ -31,7 +31,7 @@
 Для первого построения и поднятия пишем:
 
 ```bash
-ansible-playbook <имя_playbook-а_реализующего роль> -e "rebuild=true"
+ansible-playbook <имя_playbook-а_реализующего_роль> -e "rebuild=true"
 ```
 
 Например,
