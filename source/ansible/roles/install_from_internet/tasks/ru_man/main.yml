@@ -1,13 +1,13 @@
 ---
 - name: Отправить скрипт на сервер
   copy:
-    src: "{{ ru_man['bin'] }}"
-    dest: '/tmp/{{ script_name }}'
+    src: "{{ script_src }}"
+    dest: "{{ script_dest }}"
     mode: 0755
 
 
 - name: Исполнить "{{ script_name }}"
   become: true
   command: 
-    argv:  [ "/tmp/{{ script_name }}" ]
+    argv:  [ "{{ script_dest }}" ]
 

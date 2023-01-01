@@ -4,5 +4,7 @@
 - name: Установка русских мануалов
   vars:
     script_name: "{{ ru_man['bin'] | basename }}"
+    script_src: "{{ ru_man['bin'] }}"
+    script_dest: "/tmp/{{ script_name }}"
   include_tasks: ru_man/main.yml
   when: ru_man['need_install'] | bool
