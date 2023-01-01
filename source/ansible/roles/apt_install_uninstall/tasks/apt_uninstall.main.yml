@@ -1,0 +1,8 @@
+---
+- name: Получение очередной программы
+  vars:
+    all_packages: "{{ item['package'] }}"
+    description: "{{ item['description'] }}"
+  include_tasks: apt_uninstall/uninstall_separate_package_[1].yml
+  with_items: "{{ apt_unistall }}"
+  when: item['need_uninstall'] | bool or apt_uninstall_settings['force_uninstall'] | bool

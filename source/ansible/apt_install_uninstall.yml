@@ -2,7 +2,7 @@
   hosts: "{{ host_for_play | default('virtual_box') }}"  # all
   become: yes
 
-  tasks:
+  tasks:  # dpkg --get-selections > mylist.list
 
   - include_role:
-      name: install_from_repo
+      name: apt_install_uninstall

@@ -1,0 +1,475 @@
+---
+# vars file for apt_install_uninstall
+
+apt_unistall:
+  - package: celluloid
+    description: 'воспроизведение фильмов'
+    need_uninstall: true
+
+  - package: rhythmbox
+    description: 'программа воспроизведения и управления вашей музыкальной коллекцией'
+    need_uninstall: true
+
+  - package: transmission-common transmission-gtk
+    description: 'download and share files over BitTorrent'
+    need_uninstall: true
+
+  - package: thunderbird thunderbird-locale-ru
+    description: 'почтовый клиент'
+    need_uninstall: true
+
+apt_uninstall_settings:
+  need_uninstall: false
+  force_uninstall: false  # ingore need_uninstall (for debug)
+
+# -----------------------------------------------------
+
+apt_install_settings:
+  need_install: true
+  max_priority_for_install: 5
+  force_install: true  # ingore need_install (for debug)
+  category_enabled:
+    system_utils: true
+    multimedia: true
+    internet: true
+    office: true
+    games: true
+    programming: true
+
+# \n
+# \n    - package:
+# \n      description: ''\n      need_install: true\n      priority: 5\n\n
+
+apt_install:
+  system_utils:
+    - package: advancecomp
+      description: 'оптимизация png'
+      need_install: true
+      priority: 2
+
+    - package: alien
+      description: 'rmp в deb'
+      need_install: false
+      priority: 4
+
+    - package: d-feet
+      description: 'd-bus просмотрщик'
+      need_install: true
+      priority: 3
+
+    - package: dconf-editor
+      description: 'редактор настроек среды'
+      need_install: true
+      priority: 3
+
+    - package: elinks
+      description: 'консольный браузер'
+      need_install: true
+      priority: 4
+
+    - package: firefox-locale-ru
+      description: 'перевод FF на русский'
+      need_install: true
+      priority: 1
+
+    - package: fortunes fortunes-ru
+      description: 'анекдоты'
+      need_install: true
+      priority: 5
+
+    - package: gimp gimp-help-ru
+      description: ''
+      need_install: true
+      priority: 4
+
+    - package: git
+      description: ''
+      need_install: true
+      priority: 1
+
+    - package: gnome-commander
+      description: 'милый и быстрый файловый менеджер'
+      need_install: true
+      priority: 5
+
+    - package: gpm
+      description: 'поддержка мыши в tty'
+      need_install: true
+      priority: 5
+
+    - package: gprename
+      description: 'пакетное переименование файлов'
+      need_install: true
+      priority: 2
+
+    - package: grml-rescueboot
+      description: 'загрузка с iso в grub'
+      need_install: true
+      priority: 3
+
+    - package: hardinfo
+      description: 'информация о компе и системе'
+      need_install: true
+      priority: 3
+
+    - package: htop
+      description: 'консольный вывод процессов'
+      need_install: true
+      priority: 3
+
+    - package: jarwrapper
+      description: 'запуск исполняемых файлов jar'
+      need_install: true
+      priority: 5
+
+    - package: jpegoptim
+      description: 'оптимизация jpg'
+      need_install: true
+      priority: 2
+
+    - package: k3b k3b-extrathemes k3b-i18n
+      description: 'программа для прожига дисков'
+      need_install: false
+      priority: 4
+
+    - package: language-pack-gnome-ru
+      description: 'руссификация'
+      need_install: true
+      priority: 1
+
+    - package: mat
+      description: 'очистка метаданных'
+      need_install: true
+      priority: 2
+
+    - package: meld
+      description: 'сравнение файлов и каталогов'
+      need_install: true
+      priority: 1
+
+    - package: mintnanny
+      description: 'блокировщик доменов'
+      need_install: true
+      priority: 5
+
+    - package: ncdu
+      description: 'консольный вывод размера файлов/папок'
+      need_install: true
+      priority: 2
+
+    - package: nemo-audio-tab
+      description: 'вкладка Звук (ПКМ по файлу --> Свойства); позволяет посмотреть метаданные аудиофайла'
+      need_install: true
+      priority: 4
+
+    - package: nemo-compare
+      description: 'км Сравнить; использует meld для сравнения файлов и папок'
+      need_install: true
+      priority: 1
+
+    - package: nemo-filename-repairer
+      description: 'км для восстановления кодировки в названии каталогов'
+      need_install: true
+      priority: 5
+
+    - package: nemo-gtkhash
+      description: 'вкладка Хэши (ПКМ по файлу --> Свойства)'
+      need_install: true
+      priority: 5
+
+    - package: nemo-image-converter
+      description: 'два КМ: Масштабировать изображения и Вращать изображения'
+      need_install: true
+      priority: 4
+
+    - package: nemo-media-columns
+      description: 'метаданные музыки/EXIF и PDF при отображении файлов списком (Ctrl+2)'
+      need_install: true
+      priority: 5
+
+    - package: nemo-pastebin
+      description: 'км для отправки текста на pastebin'
+      need_install: false
+      priority: 5
+
+    - package: network-manager-l2tp-gnome
+      description: 'поддержка l2tp'
+      need_install: false
+      priority: 5
+
+    - package: openjdk-8-jre
+      description: 'среда запуска java приложений'
+      need_install: true
+      priority: 3
+
+    - package: optipng
+      description: 'оптимизация png'
+      need_install: true
+      priority: 2
+
+    - package: papirus-icon-theme
+      description: 'темы иконок'
+      need_install: false
+      priority: 5
+
+    - package: qpxtool
+      description: 'тест качества cd/dvd дисков'
+      need_install: true
+      priority: 4
+
+    - package: rar
+      description: 'архиватор'
+      need_install: true
+      priority: 2
+
+    - package: scons
+      description: 'усовершенствованный make'
+      need_install: true
+      priority: 5
+
+    - package: screenfetch
+      description: 'вывод информации о системе'
+      need_install: true
+      priority: 4
+
+    - package: thunderbird-locale-ru
+      description: 'русский язык для thunderbird'
+      need_install: false
+      priority: 4
+
+    - package: tree
+      description: 'выводит каталоги в форме дерева'
+      need_install: true
+      priority: 4
+
+    - package: ttf-mscorefonts-installer
+      description: 'шрифты молокософта'
+      need_install: true
+      priority: 1
+
+    - package: virtualbox-ext-pack virtualbox-qt
+      description: 'визуализация ос-м'
+      need_install: true
+      priority: 3
+
+    - package: xclip
+      description: 'для копирования информации из терминала в буфер '
+      need_install: true
+      priority: 5
+
+    - package: yad
+      description: 'аналог zenity, только круче'
+      need_install: true
+      priority: 3
+
+  multimedia:
+    - package: clementine
+      description: 'аудиоплеер'
+      need_install: true
+      priority: 1
+
+    - package: audacity
+      description: 'запись звука'
+      need_install: true
+      priority: 2
+
+    - package: converseen
+      description: 'пакетный конвертер изображений'
+      need_install: true
+      priority: 3
+
+    - package: easytag
+      description: 'GTK+ редактор метаданных для аудиофайлов'
+      need_install: true
+      priority: 4
+
+    - package: gimp-plugin-registry
+      description: 'пакет опциональных плагинов/расширений для gimp'
+      need_install: true
+      priority: 3
+
+    - package: graphicsmagick-imagemagick-compat
+      description: 'для КМ «монтаж»'
+      need_install: true
+      priority: 3
+
+    - package: kazam
+      description: 'запись скринкастов'
+      need_install: true
+      priority: 1
+
+    - package: lame
+      description: 'для конвертирования mp3'
+      need_install: true
+      priority: 2
+
+    - package: mediainfo-gui
+      description: 'вывод информации о медиафайле'
+      need_install: true
+      priority: 5
+
+    - package: mint-meta-codecs ubuntu-restricted-extras
+      description: 'набор кодеков'
+      need_install: true
+      priority: 1
+
+    - package: openshot
+      description: 'простой видео-редактор'
+      need_install: false
+      priority: 5
+
+    - package: pinta
+      description: 'простой редактор изображений'
+      need_install: true
+      priority: 3
+
+    - package: soundconverter
+      description: 'конвертер звуков'
+      need_install: true
+      priority: 2
+
+    - package: subtitleeditor
+      description: 'редактор субтитров'
+      need_install: true
+      priority: 5
+
+    - package: vlc-plugin-fluidsynth fluid-soundfont-gs
+      description: 'midi'
+      need_install: false
+      priority: 5
+
+    - package: winff winff-gtk2
+      description: "конвертер видео (mpeg's, flv's, and mov's into avi's)"
+      need_install: false
+      priority: 5
+
+  internet:
+    - package: btfs
+      description: 'монтирование торрент-файлов'
+      need_install: true
+      priority: 3
+
+    - package: qbittorrent
+      description: 'торрент-клиент'
+      need_install: true
+      priority: 1
+
+    - package: webhttrack
+      description: 'зеркалирование сайтов'
+      need_install: true
+      priority: 5
+
+    - package: youtube-dl
+      description: 'скачка видео с ютуба'
+      need_install: true
+      priority: 5
+
+  office:
+    - package: anki
+      description: 'облегчает запоминания любой информации'
+      need_install: true
+      priority: 5
+
+    - package: cherrytree
+      description: 'ноу комментс'
+      need_install: true
+      priority: 1
+
+    - package: fbreader
+      description: 'кроссплатформенная программа для чтения ePub, fb2, chm, rtf, plucker и т.д.'
+      need_install: false
+      priority: 5
+
+    - package: gnome-todo
+      description: 'планировщик, тайменеджмент'
+      need_install: false
+      priority: 5
+
+    - package: goldendict goldendict-wordnet
+      description: 'оболочка для электронных словарей'
+      need_install: false
+      priority: 4
+
+    - package: osmo
+      description: 'планировщик'
+      need_install: true
+      priority: 5
+
+    - package: unison unison-gtk
+      description: 'синхронизатор папок'
+      need_install: false
+      priority: 5
+
+  games:
+    - package: aisleriot
+      description: 'пасьянсы'
+      need_install: false
+      priority: 5
+
+    - package: frotz
+      description: 'интерпритатор Z-code историй'
+      need_install: false
+      priority: 5
+
+    - package: gnome-chess
+      description: 'шахматы'
+      need_install: true
+      priority: 2
+
+    - package: gnome-mines
+      description: 'сапер'
+      need_install: true
+      priority: 2
+
+    - package: gnome-nibbles
+      description: 'червячки'
+      need_install: true
+      priority: 3
+
+    - package: gnome-taquin
+      description: 'пятнашки (собери картинку)'
+      need_install: false
+      priority: 5
+
+    - package: lightsoff
+      description: 'туши свет (пазлы)'
+      need_install: false
+      priority: 5
+
+    - package: quadrapassel
+      description: 'тетрис'
+      need_install: false
+      priority: 4
+
+    - package: swell-foop
+      description: 'пазлы, очистка поля'
+      need_install: false
+      priority: 5
+
+  programming:
+    - package: g++
+      description: 'компилятор с++'
+      need_install: true
+      priority: 4
+
+    - package: gpick
+      description: 'пипетка'
+      need_install: true
+      priority: 3
+
+    - package: idle
+      description: 'idle для python'
+      need_install: false
+      priority: 5
+
+    - package: poedit
+      description: 'кроссплатформенный редактор переводов'
+      need_install: false
+      priority: 5
+
+    - package: screenruler
+      description: 'хорошая гномовская экранная линейка'
+      need_install: true
+      priority: 3
+
+

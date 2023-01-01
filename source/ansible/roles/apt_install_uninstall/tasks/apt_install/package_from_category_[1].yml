@@ -1,0 +1,24 @@
+---
+# - name: Печать
+#   debug:
+#     msg:
+#       - "Установка: {{ item['package'] }} | {{ item['description'] }}"
+#   loop: "{{ apt_install[category] }}"
+#   loop_control:
+#     label: "{{ category }}"
+#   when:
+#     - item['need_install'] | bool or apt_install_settings['force_install'] | bool
+#     - item['priority'] <= apt_install_settings['max_priority_for_install']
+
+
+- name: "Передача пакета из списка в подзадачу"
+  vars:
+    all_packages: "{{ item['package'] }}"
+    description: "{{ item['description'] }}"
+  include_tasks: apt_install/install_separate_package_[2].yml
+  loop: "{{ apt_install[category] }}"
+  loop_control:
+    label: "{{ category }}"
+  when:
+    - item['need_install'] | bool or apt_install_settings['force_install'] | bool
+    - item['priority'] <= apt_install_settings['max_priority_for_install']

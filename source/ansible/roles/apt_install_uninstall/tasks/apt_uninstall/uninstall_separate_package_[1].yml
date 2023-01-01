@@ -1,0 +1,5 @@
+- name: "sudo apt remove {{ all_packages }}  # {{ description }}"
+  apt:
+    name: "{{ all_packages.split() }}"
+    state: absent
+  ignore_errors: yes

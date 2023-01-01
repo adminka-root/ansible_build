@@ -1,0 +1,6 @@
+---
+- name: "sudo apt install {{ all_packages }}  # {{ description }}"
+  apt:
+    name: "{{ all_packages.split() }}"
+    state: latest
+  ignore_errors: yes

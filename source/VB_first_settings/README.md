@@ -47,7 +47,7 @@ ssh -p '22' 'adminka@192.168.56.100'
 Вероятно, эти пакеты будут полезны на виртуалке и в управляющей системе:
 
 ```bash
-sudo apt install -y ssh openssh-server
+sudo apt install -y ssh sshpass openssh-server
 ```
 
 ## Ansible
