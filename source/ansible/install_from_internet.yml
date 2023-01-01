@@ -1,0 +1,8 @@
+- name: Установка программ из интернета
+  hosts: "{{ host_for_play | default('virtual_box') }}"  # all
+  become: false
+
+  tasks:
+
+  - include_role:
+      name: install_from_internet

@@ -1,0 +1,7 @@
+---
+# vars file
+
+ru_man:
+  need_install: True
+  bin: "{{ role_path }}/files/ru_man.py"
+
