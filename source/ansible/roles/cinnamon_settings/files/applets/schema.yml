@@ -1,0 +1,121 @@
+---
+# --- Используется py скриптом ---
+
+# те, у которых имя конфига в "$HOME/.cinnamon/configs"
+# не зависит от общего счетчика положения на панелях
+to_import_config:
+  static_applets:
+    - hideable-applets@cardsurf
+    - pomodoro@gregfreeman.org
+    - sticky@scollins
+
+  dynamic_applets:
+    - calendar@cinnamon.org
+    - panel-launchers@cinnamon.org
+    - spacer@cinnamon.org
+    - menu@cinnamon.org
+    - show-desktop@cinnamon.org
+    - weather@mockturtl
+
+panels_settings:
+  panel_1: #'1:0:bottom'
+    num: 1
+    monitor: 0
+    position: bottom
+    hidden: 'false'
+    hide_delay: 0
+    show_delay: 0
+    height: 40
+  panel_2:
+    num: 2
+    monitor: 0
+    position: left
+    hidden: 'true'
+    hide_delay: 200
+    show_delay: 750
+    height: 48
+  panel_3:
+    num: 3
+    monitor: 1
+    position: bottom
+    hidden: 'false'
+    hide_delay: 0
+    show_delay: 0
+    height: 40
+  panel_4:
+    num: 4
+    monitor: 1
+    position: right
+    hidden: 'true'
+    hide_delay: 200
+    show_delay: 750
+    height: 48
+
+
+panels:
+  panel_1:
+    left:
+      - menu@cinnamon.org
+      - panel-launchers@cinnamon.org
+      - separator@cinnamon.org
+      - grouped-window-list@cinnamon.org
+    right:
+      - spacer@cinnamon.org
+      - systray@cinnamon.org
+      - gmail@lauritsriple
+      - betterlock
+      - keyboard@cinnamon.org
+      - pomodoro@gregfreeman.org
+      - hideable-applets@cardsurf
+      - notifications@cinnamon.org
+        # например так:
+      - name: weather@mockturtl
+        config: weather@mockturtl_kh.json
+      - calendar@cinnamon.org
+  panel_2:
+    left:
+      - user@cinnamon.org
+      - network@cinnamon.org
+      - power@cinnamon.org
+      - sound@cinnamon.org
+      - on-screen-keyboard@cinnamon.org
+      - removable-drives@cinnamon.org
+    center:
+      - workspace-switcher@cinnamon.org
+      - expo@cinnamon.org
+    right:
+      - sticky@scollins
+      - ScreenShot@tech71
+      - slideshow@cinnamon.org
+      - show-desktop@cinnamon.org
+  panel_3:
+    left:
+      - menu@cinnamon.org
+      - panel-launchers@cinnamon.org
+      - separator@cinnamon.org
+      - grouped-window-list@cinnamon.org
+    right:
+      - spacer@cinnamon.org
+      - gmail@lauritsriple
+      - betterlock
+      - keyboard@cinnamon.org
+      - pomodoro@gregfreeman.org
+      - hideable-applets@cardsurf
+      - name: weather@mockturtl
+        config: weather@mockturtl_spd.json
+      - calendar@cinnamon.org
+  panel_4:
+    left:
+      - user@cinnamon.org
+      - network@cinnamon.org
+      - power@cinnamon.org
+      - sound@cinnamon.org
+    center:
+      - workspace-switcher@cinnamon.org
+      - expo@cinnamon.org
+    right:
+    - removable-drives@cinnamon.org
+    - sticky@scollins
+    - ScreenShot@tech71
+    - slideshow@cinnamon.org
+    - show-desktop@cinnamon.org

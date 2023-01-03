@@ -1,0 +1,189 @@
+{
+    "configuration": {
+        "type": "header",
+        "description": "Конфигурация"
+    },
+    "action_type": {
+        "type": "combobox",
+        "default": 0,
+        "description": "Действие при активации апплета",
+        "options": {
+            "Открыть или закрыть всплывающее окно": 0,
+            "Включить или выключить видимость апплетов": 1
+        },
+        "tooltip": "Действие при активации апплета (см. \"Срабатывание\" ниже)",
+        "value": 0
+    },
+    "action_trigger_type": {
+        "type": "combobox",
+        "default": 0,
+        "description": "Срабатывание",
+        "options": {
+            "При нажатии ЛКМ": 0,
+            "При наведении мыши": 1,
+            "Ничего не делать в любом случаи": 2
+        },
+        "tooltip": "Событие, которое запускает действие апплета",
+        "value": 0
+    },
+    "side_type": {
+        "type": "combobox",
+        "default": 3,
+        "description": "Расположение аплетов",
+        "options": {
+            "Сверху": 0,
+            "По правому краю": 1,
+            "Снизу": 2,
+            "По левому краю": 3
+        },
+        "tooltip": "Расположение апплетов, для которых нужно переключать видимость",
+        "value": 3
+    },
+    "restore_hidden_string": {
+        "type": "entry",
+        "default": "network@cinnamon.org, sound@cinnamon.org, removable-drives@cinnamon.org, keyboard@cinnamon.org",
+        "description": "Скрыть при следующем запуске",
+        "tooltip": "Список разделенных запятыми идентификаторов UUID апплета.\nЕсли апплет из этого списка был обнаружен (на той же панели, что и соответствующий Hideable applets), он будет скрыт.",
+        "value": "pomodoro@gregfreeman.org"
+    },
+    "save_every": {
+        "type": "spinbutton",
+        "default": 60,
+        "min": 1,
+        "max": 86400,
+        "step": 1,
+        "units": "сек",
+        "description": "Сохранять каждые",
+        "tooltip": "Как часто сохранять последние использованные значения",
+        "value": 60
+    },
+    "configuration_end": {
+        "type": "separator"
+    },
+    "tray_start": {
+        "type": "header",
+        "description": "Всплывающее окно"
+    },
+    "applet_popup_columns": {
+        "type": "spinbutton",
+        "default": 4,
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "units": "",
+        "description": "Колонки",
+        "tooltip": "Количество столбцов во всплывающем окне апплета",
+        "value": 4
+    },
+    "applet_popup_icons_size": {
+        "type": "spinbutton",
+        "default": 40,
+        "min": 1,
+        "max": 500,
+        "step": 1,
+        "units": "пикселей",
+        "description": "Размер значка",
+        "tooltip": "Размер иконки во всплывающем окне апплета",
+        "value": 25
+    },
+    "applet_popup_icons_css": {
+        "type": "entry",
+        "default": "padding: 10px;",
+        "description": "CSS стиль значков",
+        "tooltip": "Стиль CSS, применяемый к значкам во всплывающем окне апплета",
+        "value": "padding: 5px;"
+    },
+    "applet_popup_table_css": {
+        "type": "entry",
+        "default": "padding: 15px;",
+        "description": "CSS стиль таблицы",
+        "tooltip": "Стиль CSS, применяемый к таблице во всплывающем окне апплета",
+        "value": "padding: 5px;"
+    },
+    "applet_popup_close_leave": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Авто закрытие",
+        "tooltip": "Закрыть всплывающее окно апплета, когда мышь покидает пользовательский интерфейс апплета",
+        "value": true
+    },
+    "match_panel_icons_size": {
+        "type": "checkbox",
+        "default": false,
+        "description": "Соответствовать размеру панели",
+        "tooltip": "Будут ли значки во всплывающем окне соответствовать размеру панели",
+        "value": false
+    },
+    "show_icon_tooltips": {
+        "type": "checkbox",
+        "default": true,
+        "description": "Показывать подсказки (tooltips)",
+        "tooltip": "Показывать всплывающие подсказки для иконок во всплывающем окне апплета",
+        "value": true
+    },
+    "show_grayscale_icons": {
+        "type": "checkbox",
+        "default": false,
+        "description": "Отображать значки скрытых апплетов в оттенках серого",
+        "tooltip": "",
+        "value": true
+    },
+    "grayscale_brightness": {
+        "type": "spinbutton",
+        "default": 80,
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "units": "%",
+        "description": "Яркость в оттенках серого",
+        "tooltip": "Уровень яркости иконок в оттенках серого",
+        "value": 50
+    },
+    "tray_end": {
+        "type": "separator"
+    },
+    "gui_start": {
+        "type": "header",
+        "description": "Gui"
+    },
+    "gui_sort_type": {
+        "type": "combobox",
+        "default": 0,
+        "description": "Сортировка",
+        "options": {
+            "По алфавиту": 0,
+            "По положению на панели": 1
+        },
+        "tooltip": "Порядок элементов в пользовательском интерфейсе",
+        "value": 0
+    },
+    "gui_icon_type": {
+        "type": "combobox",
+        "default": 0,
+        "description": "Значок панели",
+        "options": {
+            "Filepath": 0,
+            "Symbolic": 1
+        },
+        "tooltip": "Тип значка, отображаемого на панели",
+        "value": 0
+    },
+    "gui_icon_filepath": {
+        "type": "filechooser",
+        "default": "~/.local/share/cinnamon/applets/hideable-applets@cardsurf/icons/arrow-up.svg",
+        "description": "Укажите путь к файлу (Filepath)",
+        "tooltip": "Путь к значку, отображаемому на панели",
+        "value": "file:///usr/share/icons/Mint-X/apps/96/usermount.svg"
+    },
+    "gui_icon_symbolic_name": {
+        "type": "entry",
+        "default": "pan-up-symbolic",
+        "description": "Укажите имя символического значка (Symbolic)",
+        "tooltip": "Название символического значка, отображаемого на панели",
+        "value": "pan-up-symbolic"
+    },
+    "gui_end": {
+        "type": "separator"
+    },
+    "__md5__": "4a66a093eb66030953edee98cd8681a7"
+}

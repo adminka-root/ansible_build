@@ -1,0 +1,37 @@
+---
+# 1. Копируем ссылки на интересующие нас апплеты
+#    отсюда https://cinnamon-spices.linuxmint.com/applets
+
+- name: Создание технических директорий
+  file:
+    path: "{{ item[1] }}" 
+    state: "{{ item[0] }}" 
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+  loop:
+    - ['directory', "{{ cinnamon_panel.new_applets.dir_to_download }}"]
+    - ['directory', "{{ cinnamon_panel.sys_local }}"]
+    - ['directory', "{{ cinnamon_panel.sys_locale }}"]
+    - ['directory', "{{ cinnamon_panel.sys_configs }}"]
+
+
+- name: Загрузка, распаковка
+  vars:
+    dir_to_download: "{{ cinnamon_panel.new_applets.dir_to_download }}"
+  include_tasks: applets/wget_[1].yml
+  with_items: "{{ cinnamon_panel.new_applets.applets }}"
+  loop_control:
+    loop_var: applet
+  when: cinnamon_panel['new_applets']['need_download'] | bool
+
+
+- name: Отправить настройки на сервер
+  copy:
+    src: "{{ cinnamon_panel['need_send_to_remote_src'] }}"
+    dest: "{{ cinnamon_panel['need_send_to_remote_dest'] }}"
+    mode: 0755
+
+
+- name: Исполнить "{{ cinnamon_panel['integration_of_applets_configuration'] }}"
+  command: "{{ cinnamon_panel['need_send_to_remote_dest'] }}/{{ cinnamon_panel['integration_of_applets_configuration'] }}"

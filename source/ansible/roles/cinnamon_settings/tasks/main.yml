@@ -1,0 +1,13 @@
+---
+# tasks file
+
+- block:
+
+  - name: Получение новых апплетов из сети и применение настроек
+    include_tasks: applets/wget_loop.yml
+
+  # доделать:
+  # доуставка доп пакетов для помидоро, джимэйла и пристальный взгляд
+  # на то, что нужно еще
+
+  when: cinnamon_panel['need_settings'] | bool

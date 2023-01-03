@@ -1,0 +1,8 @@
+- name: Настройка среды графического стола
+  hosts: "{{ host_for_play | default('virtual_box') }}"  # all
+  become: false
+
+  tasks:
+
+  - include_role:
+      name: cinnamon_settings

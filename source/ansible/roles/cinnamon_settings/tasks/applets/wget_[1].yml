@@ -1,0 +1,12 @@
+---
+- name: "Загрузка {{ applet['link'] | basename }} | {{ applet['description'] }}"
+  get_url:
+    url: "{{ applet['link'] }}"
+    dest: "{{ dir_to_download }}"
+    mode: 0644
+
+- name: "Распаковка {{ applet['link'] | basename }}"
+  unarchive:
+    src: "{{ dir_to_download }}/{{ applet['link'] | basename }}"
+    dest: "{{ cinnamon_panel['sys_local'] }}"
+    remote_src: yes

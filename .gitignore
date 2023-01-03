@@ -1,4 +1,6 @@
 /.ignore_files
-/source/ansible/vault-password-file.txt
 *.retry
-source/ansible/roles/docker_control_node/files/.env
+*.idea*
+/source/ansible/vault-password-file.txt
+/source/ansible/roles/docker_control_node/files/.env
+/source/ansible/roles/cinnamon_settings/files/applets/configs/weather@mockturtl

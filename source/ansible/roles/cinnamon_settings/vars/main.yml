@@ -1,0 +1,32 @@
+---
+# vars file
+
+cinnamon_panel:
+  need_settings: true
+  sys_local: "$HOME/.local/share/cinnamon/applets/"
+  sys_locale: "$HOME/.local/share/locale/ru/LC_MESSAGES"
+  # in 19.3 = ~/.cinnamon/configs/ (но это не точно)
+  sys_configs: "$HOME/.config/cinnamon/spices/"
+  new_applets:
+    need_download: true  # for debug
+    dir_to_download: '/tmp/cinnamon_applets/'
+    applets:
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/pomodoro@gregfreeman.org.zip
+        description: 'Отличный инструмент для повышения производительности!'
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/hideable-applets@cardsurf.zip
+        description: 'Скрытие апплетов в трее'
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/sticky@scollins.zip
+        description: 'Создание заметок-стикеров на рабочем столе'
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/ScreenShot@tech71.zip
+        description: 'Сделать снимок экрана'
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/betterlock.zip
+        description: 'Индикатор Num Lock/Caps Lock с уведомлениями в трее'
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/weather@mockturtl.zip
+        description: 'Просмотр прогноза вашей местности'
+      - link: https://cinnamon-spices.linuxmint.com/files/applets/gmail@lauritsriple.zip
+        description: 'Показ самых последних email-сообщений'
+  need_send_to_remote_src: "{{ role_path }}/files/applets/"
+  need_send_to_remote_dest: '/tmp/cinnamon_applets/'
+  integration_of_applets_configuration: 'integration_of_applets_configuration.py'
+
+    
