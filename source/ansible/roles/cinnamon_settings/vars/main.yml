@@ -25,6 +25,16 @@ cinnamon_panel:
         description: 'Просмотр прогноза вашей местности'
       - link: https://cinnamon-spices.linuxmint.com/files/applets/gmail@lauritsriple.zip
         description: 'Показ самых последних email-сообщений'
+    recommended_dependencies: 
+      need_install: true
+      apt:
+        - pip
+        - sox libsox-fmt-all  # pomodoro@gregfreeman.org
+      pip: 
+        - feedparser keyring keyrings-alt  # gmail@lauritsriple
+    sounds_for_pomodoro:
+      file: sounds_for_pomodoro.tar.gz
+      dest: '/usr/share/sounds/KDE-sounds'
   need_send_to_remote_src: "{{ role_path }}/files/applets/"
   need_send_to_remote_dest: '/tmp/cinnamon_applets/'
   integration_of_applets_configuration: 'integration_of_applets_configuration.py'

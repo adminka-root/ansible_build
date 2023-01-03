@@ -3,11 +3,28 @@
 
 - block:
 
-  - name: Получение новых апплетов из сети и применение настроек
+    # что можно улучшить:
+    # проблему с путями: ~/.config/cinnamon/spices/  (in 19.3 = ~/.cinnamon/configs/ )
+
+  - name: Получение новых апплетов из сети и распаковка в юзер зону
     include_tasks: applets/wget_loop.yml
 
-  # доделать:
-  # доуставка доп пакетов для помидоро, джимэйла и пристальный взгляд
-  # на то, что нужно еще
+  - name: Установка рекомендуемых зависимостей
+    vars:
+      apt_packages: "{{ cinnamon_panel['new_applets']['recommended_dependencies']['apt'] | join(' ') }}"
+      pip_packages: "{{ cinnamon_panel['new_applets']['recommended_dependencies']['pip'] | join(' ') }}"
+    include_tasks: applets/dependencies.yml
+    when: cinnamon_panel['new_applets']['recommended_dependencies']['need_install'] | bool
+
+  - name: Применение скрипта для настройки панелей, используя gsettings
+    include_tasks: applets/integration_of_applets_configuration.yml
+
+  - name: Установка KDE звуковой схемы (для pomodoro@gregfreeman.org)
+    vars:
+      filename: "{{ cinnamon_panel['new_applets']['sounds_for_pomodoro']['file'] }}"
+      file_path: "{{ cinnamon_panel['new_applets']['dir_to_download'] }}/{{ filename }}"
+      dest: "{{ cinnamon_panel['new_applets']['sounds_for_pomodoro']['dest'] }}"
+    include_tasks: applets/sounds_for_pomodoro.yml
+
 
   when: cinnamon_panel['need_settings'] | bool

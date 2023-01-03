@@ -4,3 +4,4 @@
 /source/ansible/vault-password-file.txt
 /source/ansible/roles/docker_control_node/files/.env
 /source/ansible/roles/cinnamon_settings/files/applets/configs/weather@mockturtl
+/source/ansible/roles/cinnamon_settings/files/applets/configs/gmail@lauritsriple

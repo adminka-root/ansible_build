@@ -24,14 +24,3 @@
   loop_control:
     loop_var: applet
   when: cinnamon_panel['new_applets']['need_download'] | bool
-
-
-- name: Отправить настройки на сервер
-  copy:
-    src: "{{ cinnamon_panel['need_send_to_remote_src'] }}"
-    dest: "{{ cinnamon_panel['need_send_to_remote_dest'] }}"
-    mode: 0755
-
-
-- name: Исполнить "{{ cinnamon_panel['integration_of_applets_configuration'] }}"
-  command: "{{ cinnamon_panel['need_send_to_remote_dest'] }}/{{ cinnamon_panel['integration_of_applets_configuration'] }}"

@@ -1,13 +1,16 @@
 ---
 # --- Используется py скриптом ---
 
-# те, у которых имя конфига в "$HOME/.cinnamon/configs"
-# не зависит от общего счетчика положения на панелях
+# Для импорта конфигов следует указать тип апплета
 to_import_config:
+# те, у которых имя конфига в
+# ~/.config/cinnamon/spices/  (in 19.3 = ~/.cinnamon/configs/ )
+# не зависит от общего счетчика положения на панелях
   static_applets:
     - hideable-applets@cardsurf
     - pomodoro@gregfreeman.org
     - sticky@scollins
+    - gmail@lauritsriple
 
   dynamic_applets:
     - calendar@cinnamon.org
@@ -26,6 +29,10 @@ panels_settings:
     hide_delay: 0
     show_delay: 0
     height: 40
+    icon_sizes:
+      left: 0
+      center: 0
+      right: 24
   panel_2:
     num: 2
     monitor: 0
@@ -34,6 +41,10 @@ panels_settings:
     hide_delay: 200
     show_delay: 750
     height: 48
+    icon_sizes:
+      left: 0
+      center: 0
+      right: 0
   panel_3:
     num: 3
     monitor: 1
@@ -42,6 +53,10 @@ panels_settings:
     hide_delay: 0
     show_delay: 0
     height: 40
+    icon_sizes:
+      left: 0
+      center: 0
+      right: 24
   panel_4:
     num: 4
     monitor: 1
@@ -50,6 +65,10 @@ panels_settings:
     hide_delay: 200
     show_delay: 750
     height: 48
+    icon_sizes:
+      left: 0
+      center: 0
+      right: 0
 
 
 panels:

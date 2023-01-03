@@ -60,7 +60,8 @@ if __name__ == "__main__":
         'panels-show-delay': [],  # "['1:0', '2:750', '3:0', '4:750']"
         'panels-height': [],  # "['1:40', '2:48', '3:40', '4:48']"
         'enabled-applets': [],  # "['current_panel_g:LRC:applet_pos_relative:applet:applet_pos_absolute', ...]"
-        'no-adjacent-panel-barriers': 'true'  # пропускать курсор через панели к мониторам
+        'no-adjacent-panel-barriers': 'true',  # пропускать курсор через панели к мониторам
+        'panel-zone-icon-sizes': []
     }
 
     # определение enabled-applets и копирование конфигов
@@ -89,7 +90,7 @@ if __name__ == "__main__":
                         dest_file = os.path.join(dest_dir, str(applet_pos_absolute) + '.json')
                         shutil.copy(tmp_f_path_config, dest_file)
                     elif applet in yml_data['to_import_config']['static_applets']:
-                        dest_file = os.path.join(dest_dir, applet_config)
+                        dest_file =   os.path.join(dest_dir, str(applet) + '.json')  # os.path.join(dest_dir, applet_config)
                         shutil.copy(tmp_f_path_config, dest_file)
                 elif applet in want_import:
                     not_find_configs.append({'applet': applet, 'path': tmp_f_path_config})
@@ -113,7 +114,14 @@ if __name__ == "__main__":
         gsettings['panels-hide-delay'].append(f"{num}:{yml_data['panels_settings'][current_panel]['hide_delay']}")
         gsettings['panels-show-delay'].append(f"{num}:{yml_data['panels_settings'][current_panel]['show_delay']}")
         gsettings['panels-height'].append(f"{num}:{yml_data['panels_settings'][current_panel]['height']}")
-        # panel_zone_icon_sizes.append(f"panelId:{num}, left:0, center:0, right:{yml_data['panels_settings'][current_panel]['??24??']}")
+        gsettings['panel-zone-icon-sizes'].append(
+            {
+                'panelId': num, 
+                'left': yml_data['panels_settings'][current_panel]['icon_sizes']['left'],
+                'center': yml_data['panels_settings'][current_panel]['icon_sizes']['center'],
+                'right': yml_data['panels_settings'][current_panel]['icon_sizes']['right']
+            }
+        )
     gsettings['next-applet-id'] = applet_pos_absolute + 1
 
     for dirs in [using_dirs['local'], using_dirs['locale']]:
@@ -122,6 +130,6 @@ if __name__ == "__main__":
 
     # установка схем
     for schema in gsettings:
-        subprocess.call(
-            ['gsettings', 'set', 'org.cinnamon', schema, str(gsettings[schema])]
+        subprocess.call(                                                   # for panel-zone-icon-sizes
+            ['gsettings', 'set', 'org.cinnamon', schema, str(gsettings[schema]).replace('\'', '"')]
         )

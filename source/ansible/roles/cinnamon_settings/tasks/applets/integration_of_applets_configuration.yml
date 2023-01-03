@@ -1,0 +1,14 @@
+---
+- name: Отправить настройки на сервер
+  copy:
+    src: "{{ cinnamon_panel['need_send_to_remote_src'] }}"
+    dest: "{{ cinnamon_panel['need_send_to_remote_dest'] }}"
+    mode: 0755
+
+- name: Сменить права для "{{ cinnamon_panel['integration_of_applets_configuration'] }}"
+  file:
+    path: "{{ cinnamon_panel['need_send_to_remote_dest'] }}/{{ cinnamon_panel['integration_of_applets_configuration'] }}"
+    mode: '0777'
+
+- name: Исполнить "{{ cinnamon_panel['integration_of_applets_configuration'] }}"
+  command: "{{ cinnamon_panel['need_send_to_remote_dest'] }}/{{ cinnamon_panel['integration_of_applets_configuration'] }}"

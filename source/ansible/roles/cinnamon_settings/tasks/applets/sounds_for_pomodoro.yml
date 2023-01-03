@@ -1,0 +1,18 @@
+---
+- name: Создание директории назначения
+  file:
+    path: "{{ item[1] }}" 
+    state: "{{ item[0] }}" 
+    mode: 0755
+  become: true
+  loop:
+    - ['directory', "{{ dest }}"]
+
+- name: "Распаковка {{ filename }}"
+  unarchive:
+    src: "{{ file_path }}"
+    dest: "{{ dest }}"
+    mode: 0644
+    remote_src: yes
+  become: true
+  
