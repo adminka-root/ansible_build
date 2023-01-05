@@ -5,6 +5,7 @@
 
     # что можно улучшить:
     # проблему с путями: ~/.config/cinnamon/spices/  (in 19.3 = ~/.cinnamon/configs/ )
+    # нумлок апплет
 
   - name: Получение новых апплетов из сети и распаковка в юзер зону
     include_tasks: applets/wget_loop.yml
