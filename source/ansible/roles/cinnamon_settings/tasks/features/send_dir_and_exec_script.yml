@@ -1,0 +1,28 @@
+---
+- name: Отправить настройки на сервер
+  copy:
+    src: "{{ filedir_to_copy_serv_src }}"
+    dest: "{{ filedir_to_copy_serv_dest }}"
+    mode: 0755
+
+- name: Сменить права для "{{ script_name }}"
+  file:
+    path: "{{ filedir_to_copy_serv_dest }}/{{ script_name }}"
+    mode: '0777'
+
+- name: Исполнить "{{ script_name }}"
+  command: "{{ filedir_to_copy_serv_dest }}/{{ script_name }}"
+  ignore_errors: yes
+  register: command_result
+
+- name: Ошибка выполнения "{{ script_name }}"
+  debug:
+    msg: "{{ command_result.stderr_lines }}"
+  when: command_result.rc != 0
+  failed_when: true  # is defined
+
+- name: Предупреждение для "{{ script_name }}"
+  debug:
+    msg: "{{ command_result.stderr_lines }}"
+  when: command_result.stderr_lines != []
+

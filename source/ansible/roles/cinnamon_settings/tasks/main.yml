@@ -18,7 +18,11 @@
     when: cinnamon_panel['new_applets']['recommended_dependencies']['need_install'] | bool
 
   - name: Применение скрипта для настройки панелей, используя gsettings
-    include_tasks: applets/integration_of_applets_configuration.yml
+    vars:
+      filedir_to_copy_serv_src: "{{ cinnamon_panel['need_send_to_remote_src'] }}"
+      filedir_to_copy_serv_dest: "{{ cinnamon_panel['need_send_to_remote_dest'] }}"
+      script_name: "{{ cinnamon_panel['integration_of_applets_configuration'] }}"
+    include_tasks: features/send_dir_and_exec_script.yml
 
   - name: Установка KDE звуковой схемы (для pomodoro@gregfreeman.org)
     vars:
@@ -29,3 +33,21 @@
 
 
   when: cinnamon_panel['need_settings'] | bool
+
+- block:
+
+  - name: Установка gsettings схем
+    vars:
+      filedir_to_copy_serv_src: "{{ cinnamon_gsettings['need_send_to_remote_src'] }}"
+      filedir_to_copy_serv_dest: "{{ cinnamon_gsettings['need_send_to_remote_dest'] }}"
+      script_name: "{{ cinnamon_gsettings['script_name'] }}"
+    include_tasks: features/send_dir_and_exec_script.yml
+
+  - name: Получение папки логов
+    vars:
+      fetch_serv_src: "{{ cinnamon_gsettings['need_send_to_remote_dest'] }}/logs/"
+      fetch_ansible_dest: "{{ cinnamon_gsettings['need_send_to_remote_src'] }}/logs/{{ inventory_hostname }}"
+    include_tasks: features/fetch_dir.yml
+    when: true
+
+  when: cinnamon_gsettings['apply'] | bool

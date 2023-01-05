@@ -1,6 +1,39 @@
 ---
 # --- Используется py скриптом ---
 
+dconf:
+  org:
+    gnome:
+      terminal:  # Добавление профилей терминала (удобнее через dconf, ибо с gsettings получаются уродские команды)
+        legacy:
+          keybindings:
+            select-all: "'<Primary><Shift>a'"
+          'profiles:':
+              list: "['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', 'd28cb325-7b65-4849-ba23-e6c7fdb2d413']"
+              ':b1dcc9dd-5262-4d8d-a863-c897e6d979b9':
+                  visible-name: 'Black'
+                  cursor-shape: "'ibeam'"
+                  use-theme-colors: 'false'
+                  foreground-color: "'rgb(255,255,255)'"
+                  background-color: "'rgb(0,0,0)'"
+                  use-theme-transparency: 'false'
+                  use-transparent-background: 'true'
+                  background-transparency-percent: "50"
+              ':d28cb325-7b65-4849-ba23-e6c7fdb2d413':
+                  visible-name: "'White'"
+                  cursor-shape: "'ibeam'"
+                  use-theme-colors: 'false'
+                  foreground-color: "'rgb(46,52,54)'"
+                  background-color: "'rgb(238,238,236)'"
+                  use-theme-transparency: 'false'
+                  use-transparent-background: 'true'
+                  background-transparency-percent: "10"
+                  palette: "['rgb(0,0,0)', 'rgb(170,0,0)', 'rgb(0,170,0)', 'rgb(170,85,0)', 'rgb(0,0,170)', 'rgb(170,0,170)', 'rgb(0,170,170)', 'rgb(170,170,170)', 'rgb(85,85,85)', 'rgb(255,85,85)', 'rgb(85,255,85)', 'rgb(255,255,85)', 'rgb(85,85,255)', 'rgb(255,85,255)', 'rgb(85,255,255)', 'rgb(255,255,255)']"
+                  bold-is-bright: 'false'
+                  highlight-colors-set: 'true'
+                  highlight-foreground-color: "'rgb(0,0,0)'"
+                  highlight-background-color: "'rgb(255,247,130)'"
+
 gsettings:
   org:
     # ------------------------------------------------------------------------------------------------------------------

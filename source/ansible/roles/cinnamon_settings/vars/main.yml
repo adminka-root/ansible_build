@@ -39,4 +39,8 @@ cinnamon_panel:
   need_send_to_remote_dest: '/tmp/cinnamon_applets/'
   integration_of_applets_configuration: 'integration_of_applets_configuration.py'
 
-    
+cinnamon_gsettings:
+  apply: true
+  need_send_to_remote_src: "{{ role_path }}/files/gsettings/"
+  need_send_to_remote_dest: '/tmp/cinnamon_gsettings/'
+  script_name: 'gsettings.py'
